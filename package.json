@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "serverless": "^1.25.0",
+    "serverless-domain-manager": "^1.1.25",
+    "serverless-plugin-aws-alerts": "^1.2.4",
+    "serverless-python-requirements": "^3.0.12"
+  },
+  "dependencies": {
+    "serverless-wsgi": "^1.5.2"
+  }
+}

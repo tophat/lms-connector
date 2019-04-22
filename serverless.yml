@@ -1,0 +1,91 @@
+# For full config options, check the docs:
+#   https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+
+service: lms-connector
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: ${opt:stage, 'development'} # development, production
+  region: ${opt:region, 'us-east-1'}
+  stackTags:
+    service: ${self:service} # required tag
+    Environment: ${self:provider.stage} # required tag
+    Owner: standards # required tag
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'cloudwatch:PutMetricData'
+      Resource: "*"
+
+functions:
+  app:
+    handler: wsgi.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+    environment:
+      DEBUG: ${self:custom.debug.${self:provider.stage}, self:custom.debug.development}
+      SECRET_KEY: ${ssm:/aws/reference/secretsmanager/lms-connector/django-secret-key~true}
+      STAGE: ${self:provider.stage}
+      API_KEY: ${ssm:/aws/reference/secretsmanager/lms-connector/api-key~true}
+
+package:
+  exclude:
+    - '**'
+  include:
+    - 'lms_connector/**'
+    - '!lms_connector/tests/**'
+
+plugins:
+  - serverless-domain-manager
+  - serverless-plugin-aws-alerts
+  - serverless-python-requirements
+  - serverless-wsgi
+
+resources:
+  Resources: ${file(cloudformation.yml)}
+
+custom:
+  debug:
+    development: True
+    production: False
+  wsgi:
+    app: lms_connector.wsgi.application
+  domain:
+    development: ${self:service}-${self:provider.stage}.dev.tophat.com
+    production: ${self:service}.tophat.com
+  certDomain:
+    development: dev.tophat.com
+    production: tophat.com
+  customDomain:
+    basePath: ''
+    certificateName: '*.${self:custom.certDomain.${self:provider.stage}, self:custom.certDomain.development}'
+    createRoute53Record: true
+    domainName: ${self:custom.domain.${self:provider.stage}, self:custom.domain.development}
+    stage: ${self:provider.stage}
+  alerts:
+    dashboards: true
+    topics:
+      ok:
+        topic: ${self:service}-${opt:stage}-alerts-ok
+        notifications:
+          - protocol: email
+            endpoint: standards-dev@tophatmonocle.com
+      alarm:
+        topic: ${self:service}-${opt:stage}-alerts-alarm
+        notifications:
+          - protocol: email
+            endpoint: standards-dev@tophatmonocle.com
+      insufficientData:
+        topic: ${self:service}-${opt:stage}-alerts-insufficientData
+        notifications:
+          - protocol: email
+            endpoint: standards-dev@tophatmonocle.com
+    alarms:
+      - functionThrottles
+      - functionErrors
+      - functionInvocations
+      - functionDuration
+  pythonRequirements:
+    dockerizePip: non-linux
