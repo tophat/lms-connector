@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "ranacseruet",
+      "name": "Rana Md Ali Ahsan",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/368209?v=4",
+      "profile": "http://codesamplez.com",
+      "contributions": [
+        "infra",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "lms-connector",
+  "projectOwner": "tophat",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
