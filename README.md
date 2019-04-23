@@ -7,12 +7,6 @@
 
 To deploy this service, push to master.
 
-### Running tests
-`make test`
-
-### Start Server
-`make run`
-
 ### Secret management
 Use ssm parameter store.
 
