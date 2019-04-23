@@ -45,7 +45,8 @@ jobs:
       - run:
           name: run tests
           command: |
-            pipenv run pytest --junitxml=$(JUNITXML_PATH) lms_connector/tests
+            pipenv run pytest --cov=./ --junitxml=$(JUNITXML_PATH) lms_connector/tests
+            codecov
       - store_artifacts:
           path: test-reports
           destination: test-reports
