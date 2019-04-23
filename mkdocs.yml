@@ -1,0 +1,4 @@
+site_name: LMS Connector
+nav:
+    - Home: index.md
+    - Contributing: CONTRIBUTING.md
