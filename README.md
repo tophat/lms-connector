@@ -1,6 +1,7 @@
 # lms-connector
 
 [![CircleCI](https://circleci.com/gh/tophat/lms-connector.svg?style=svg)](https://circleci.com/gh/tophat/lms-connector)
+[![codecov](https://codecov.io/gh/tophat/lms-connector/branch/master/graph/badge.svg)](https://codecov.io/gh/tophat/lms-connector)
 
 ### Deploy
 
