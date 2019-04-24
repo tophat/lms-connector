@@ -47,6 +47,10 @@ jobs:
           command: |
             pipenv run pytest --cov=./ --junitxml=$(JUNITXML_PATH) lms_connector/tests
             pipenv run codecov
+      - run:
+          name: codestyle check
+          command: |
+            pipenv run make pep8
       - store_artifacts:
           path: test-reports
           destination: test-reports
