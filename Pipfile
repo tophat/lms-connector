@@ -6,6 +6,7 @@ verify_ssl = true
 boto3 = "*"
 django = "*"
 djangorestframework = "*"
+django-rest-swagger = "*"
 requests-oauthlib = "*"
 
 [dev-packages]
