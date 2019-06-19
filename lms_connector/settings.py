@@ -48,6 +48,8 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework_swagger',
+    'django.contrib.staticfiles',
     'django.contrib.contenttypes',
 ]
 
@@ -55,6 +57,24 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'lms_connector.middleware.cloudwatch.CloudWatch',
 ]
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+STATIC_ROOT = './'
+STATIC_URL = '/templates/'
 
 ROOT_URLCONF = 'lms_connector.urls'
 
