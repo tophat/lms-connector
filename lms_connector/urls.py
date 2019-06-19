@@ -54,4 +54,9 @@ urlpatterns = [
         name='grades',
     ),
     path('docs', schema_view),
+    path(
+        '',
+        views.DjangoTestEndpoint.as_view(),
+        name='django_test',
+    ),
 ]
