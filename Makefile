@@ -26,7 +26,7 @@ pipenv:
 
 .PHONY: pipenv
 run:
-	pipenv run ./manage.py runserver 9284 --verbosity 3
+	pipenv run ./manage.py runserver 9284
 
 .PHONY: test
 test: pipenv

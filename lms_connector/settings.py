@@ -33,7 +33,7 @@ else:
     SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Should work to remove the wildcard
 ALLOWED_HOSTS = [
